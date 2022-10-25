@@ -1,0 +1,84 @@
+{
+  "name": "garden-segment",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/garden-segment/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/garden-segment",
+        "index": "apps/garden-segment/src/index.html",
+        "baseHref": "/",
+        "main": "apps/garden-segment/src/main.tsx",
+        "polyfills": "apps/garden-segment/src/polyfills.ts",
+        "tsConfig": "apps/garden-segment/tsconfig.app.json",
+        "assets": [
+          "apps/garden-segment/src/favicon.ico",
+          "apps/garden-segment/src/assets"
+        ],
+        "styles": ["apps/garden-segment/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/garden-segment/src/environments/environment.ts",
+              "with": "apps/garden-segment/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "garden-segment:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "garden-segment:build:development"
+        },
+        "production": {
+          "buildTarget": "garden-segment:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/garden-segment/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/garden-segment/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
